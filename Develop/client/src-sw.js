@@ -1,4 +1,5 @@
 const { offlineFallback, warmStrategyCache } = require('workbox-recipes');
+// offlineFallback is not used in Poornima's solution. So don't worry about it (except maybe read the documentation.)
 const { CacheFirst } = require('workbox-strategies');
 const { registerRoute } = require('workbox-routing');
 const { CacheableResponsePlugin } = require('workbox-cacheable-response');
@@ -27,10 +28,7 @@ warmStrategyCache({
 registerRoute(({ request }) => request.mode === 'navigate', pageCache);
 
 // TODO: Implement asset caching
-registerRoute(
-  ({ request }) => ['style', 'script', 'worker'].includes(request.destination),
-  new CacheFirst({
-    cacheName: 'asset-cache'
+// Trying to figure out the correct syntax for asset caching. 
 
-  })
-);
+registerRoute(
+  ({ request }) => ['style', 'script', 'worker'].includes(request.destination), pageCache);
